@@ -6,7 +6,7 @@ export default function Dashboard() {
         <h2 id="wd-dashboard-published">Published Courses (3)</h2> <hr />
         <div id="wd-dashboard-courses">
             <div className="wd-dashboard-course">
-                <img src="images/logo.svg"  />
+            <img alt="Northeastern University logo" src="/images/neu-logo.svg" />
                 <div>
                     <Link className="wd-dashboard-course-link"
                     to="/Kanbas/Courses/1234/Home">
@@ -18,7 +18,7 @@ export default function Dashboard() {
                 </div>
             </div>
             <div className="wd-dashboard-course"> 
-                <img src="images/logo.svg"   />
+                <img alt="Northeastern University logo" src="/images/neu-logo.svg" />
                 <div>
                     <Link className="wd-dashboard-course-link"
                     to="/Kanbas/Courses/5610/Home">
@@ -30,7 +30,7 @@ export default function Dashboard() {
                 </div>
             </div>
             <div className="wd-dashboard-course"> 
-                <img src="images/logo.svg"   />
+                <img alt="Northeastern University logo" src="/images/neu-logo.svg" />
                 <div>
                     <Link className="wd-dashboard-course-link"
                     to="/Kanbas/Courses/5610/Home">
