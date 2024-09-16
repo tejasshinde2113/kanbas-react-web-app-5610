@@ -37,7 +37,7 @@ export default function Dashboard() {
                     Course 3
                     </Link>
                     <p className="wd-dashboard-course-title">
-                    Full Stack software developer
+                    Full Stack software developers
                     </p>
                 </div>
             </div>
