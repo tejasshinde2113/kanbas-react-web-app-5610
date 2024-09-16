@@ -9,6 +9,6 @@ export default function KanbasNavigation() {
       <Link to="/Kanbas/Calendar" id="wd-calendar-link">Calendar</Link><br/>
       <Link to="/Kanbas/Inbox" id="wd-inbox-link">Inbox ss</Link><br/>
       <Link to="/Labs" id="wd-labs-link">Labs</Link><br/>
-      <Link to="https://github.com/" id="wd-github" >GitHub</Link><br/>
+      <Link to="https://github.com/TejasShindeNEU/Kanbas-Web-app-5160/tree/a1" id="wd-github" >GitHub</Link><br/>
     </div>
 );}
