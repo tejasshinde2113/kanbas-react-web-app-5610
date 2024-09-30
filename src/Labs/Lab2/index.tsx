@@ -247,6 +247,7 @@ export default function Lab2() {
                 Red </div>
             <img className="wd-float-right"
                 src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"
+                alt = "Starship"
                  />
             <div className="wd-float-done"></div>
             </div>
@@ -694,7 +695,8 @@ export default function Lab2() {
             <h2>Cards</h2>
             <div className="card"
                 style={{ width: "18rem" }}>
-                <img src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg" 
+                <img src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"
+                    alt = "Starship"
                     className="card-img-top" />
                 <div className="card-body">
                 <h5 className="card-title">
