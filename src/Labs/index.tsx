@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router";
 import TOC from "./TOC";
 import Lab2 from "./Lab2";
 import Lab3 from "./Lab3";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Labs() {
     return (
