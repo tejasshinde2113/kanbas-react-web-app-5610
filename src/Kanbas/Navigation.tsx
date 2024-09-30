@@ -14,7 +14,7 @@ export default function KanbasNavigation() {
       <a id="wd-neu-link" 
         href="https://www.northeastern.edu/" 
         className="list-group-item bg-black border-0 text-center">
-          <img src="/images/NEU.png" alt = "ALT text" width="75px" />
+          <img src="/images/NortheasternLogo.png" alt = "Northeastern Logo" width="75px" />
       </a>
 
       <NavLink to="/Kanbas/Account" id="wd-account-link"

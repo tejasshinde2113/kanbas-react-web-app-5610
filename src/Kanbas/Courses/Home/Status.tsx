@@ -8,7 +8,7 @@ import { TfiAnnouncement } from "react-icons/tfi";
 import { MdNotificationsNone } from "react-icons/md";
 
 
-{/* Find more icons */}
+
 export default function CourseStatus() {
   return (
     <div id="wd-course-status" style={{ width: "300px" }}>

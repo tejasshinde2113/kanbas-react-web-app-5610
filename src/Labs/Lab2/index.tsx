@@ -2,6 +2,7 @@ import "./index.css";
 import ReactIconsSampler from "./ReactIcons"
 import ScreenSizeLabel from "./ScreenSizeLabel"
 
+
 export default function Lab2() {
     return (
       <div id="wd-lab2" className="container">
@@ -245,7 +246,8 @@ export default function Lab2() {
             <div className="wd-float-left wd-dimension-portrait wd-bg-color-red">
                 Red </div>
             <img className="wd-float-right"
-                src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"/>
+                src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"
+                 />
             <div className="wd-float-done"></div>
             </div>
         </div>
@@ -692,7 +694,7 @@ export default function Lab2() {
             <h2>Cards</h2>
             <div className="card"
                 style={{ width: "18rem" }}>
-                <img src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"
+                <img src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg" 
                     className="card-img-top" />
                 <div className="card-body">
                 <h5 className="card-title">
