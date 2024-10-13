@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from "react-router";
-import { Link } from "react-router-dom";
 import Account from "./Account";
 import Dashboard from "./Dashboard"
 import KanbasNavigation from "./Navigation";
@@ -24,9 +23,7 @@ export default function Kanbas() {
             <Route path="/Calendar" element={<h1>Calendar</h1>} />
             <Route path="/Inbox" element={<h1>Inbox</h1>} />
           </Routes>
-          
-          </td>
-          
+          </td> 
         </tr>
       </table>
       
