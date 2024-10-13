@@ -115,7 +115,7 @@ export default function Lab1() {
             <br />
             Loading a local image:
             <br />
-            <img alt="Northeastern University logo" src="/images/neu-logo.svg" />
+            <img alt="Northeastern University logo" src="/images/NortheasternLogo.png" />
         </div>
 
         <div id="wd-forms">
