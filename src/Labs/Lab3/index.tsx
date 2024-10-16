@@ -31,6 +31,7 @@ import Add from "./Add";
 import Square from "./Square";
 import Highlight from "./Highlight";
 import PathParameters from "./PathParameters";
+import AddPathParameters from "./AddPathParameters";
 
 export default function Lab3() {
     console.log('Hello World!');
@@ -67,6 +68,7 @@ export default function Lab3() {
             <Classes />
             <Styles />
             <Add a={3} b={4} />
+            <AddPathParameters/>
             <h4>Square of 4</h4>
             <Square>4</Square>
             <hr />
