@@ -9,7 +9,7 @@ import PeopleTable from "./People/Table";
 
 
 export default function Courses ({ courses }: { courses: any[]; }) {
-    //Get the current ourse ID
+    //Get the current course ID
     
     const { cid } = useParams();
     const course = courses.find((course) => course._id === cid);

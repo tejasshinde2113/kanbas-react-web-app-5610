@@ -5,7 +5,14 @@ import * as db from "./Database";
 import ProtectedEdit from "./Account/ProtectedEdit";
 import ProtectedRouteStudent from "./Account/ProtectedRouteStudent";
 
-export default function Dashboard({ courses, course, setCourse, addNewCourse, deleteCourse, updateCourse }: {
+export default function Dashboard({ 
+    courses, 
+    course, 
+    setCourse, 
+    addNewCourse, 
+    deleteCourse, 
+    updateCourse }: 
+    {
         courses: any[]; course: any; setCourse: (course: any) => void;
         addNewCourse: () => void; deleteCourse: (course: any) => void;
         updateCourse: () => void; }) {
