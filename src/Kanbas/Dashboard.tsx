@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as db from "./Database";
 import ProtectedEdit from "./Account/ProtectedEdit";
 import ProtectedRouteStudent from "./Account/ProtectedRouteStudent";
+import {unenrollCourse,enrollCourse} from "./enrollmentReducer";
+
 
 export default function Dashboard({ 
     courses, 
@@ -21,10 +23,21 @@ export default function Dashboard({
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const { enrollments } = db;
     // const { enrollme+++nts } = useSelector((state: any) => state.enrollmentReducer);
-
+    
     const enrolledCourses = courses.filter((course) => enrollments.some(
         (enrollment) => enrollment.user === currentUser._id && enrollment.course === course._id
       ));
+      const isEnrolled = enrolledCourses.includes(course._id);
+
+    
+      const dispatch = useDispatch();
+      const handleEnroll = (courseId: string) => {
+        dispatch(enrollCourse({ userId: currentUser._id, courseId }));
+      };
+    
+      const handleUnenroll = (courseId: string) => {
+        dispatch(unenrollCourse({ userId: currentUser._id, courseId }));
+      };
     
     const displayedCourses = showAllCourses ? courses : enrolledCourses;
     return (
@@ -80,6 +93,34 @@ export default function Dashboard({
                             {course.description}
                             </p>
                             <button className="btn btn-primary"> Go </button>
+
+                            <ProtectedRouteStudent>
+                            <span>
+                                
+                                {isEnrolled ? (
+                                  <button
+                                    className="btn btn-danger me-2"
+                                    onClick={(event) => {
+                                      event.preventDefault();
+                                      handleUnenroll(course._id);
+                                    }}
+                                  >
+                                    Unenroll
+                                  </button>
+                                ) : (
+                                  <button
+                                    className="btn btn-success me-2"
+                                    onClick={(event) => {
+                                      event.preventDefault();
+                                      handleEnroll(course._id);
+                                    }}
+                                  >
+                                    Enroll
+                                  </button>
+                                )}
+                              </span>
+                            </ProtectedRouteStudent>
+
                             <ProtectedEdit>
                                 <button onClick={(event) => {
                                     event.preventDefault();
