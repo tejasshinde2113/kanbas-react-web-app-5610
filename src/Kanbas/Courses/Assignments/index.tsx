@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function Assignments() {
   const { cid } = useParams();
-  const [assignmentName, setAssignmentName] = useState("");
+  const [assignmentName, setAssignmentName] = useState(".");
   const [assignmentDesc, setAssignmentDesc] = useState("");
   const [assignmentPoints, setAssignmentPoints] = useState("");
   const [assignmentDue, setAssignmentDue] = useState("");
