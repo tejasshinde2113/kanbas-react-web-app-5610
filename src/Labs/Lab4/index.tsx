@@ -9,8 +9,13 @@ import DateStateVariable from "./DateStateVariables";
 import ObjectStateVariable from "./ObjectStateVariables";
 import ArrayStateVariable from "./ArrayStateVariable";
 import ParentStateComponent from "./ParentStateComponent";
+
 import ReduxExamples from "./ReduxExamples";
 import { useSelector } from "react-redux";
+
+
+  
+
 
 export default function Lab1() {
     function sayhello() {
@@ -18,9 +23,15 @@ export default function Lab1() {
     } 
     const { todos } = useSelector((state: any) => state.todosReducer);
 
+
+
+
+
     return (
         <div id="wd-lab4">
             <h2>Lab 4</h2>
+
+
             <ClickEvent />
             <PassingDataOnEvent />
             <PassingFunctions theFunction={sayhello}/>
@@ -32,6 +43,7 @@ export default function Lab1() {
             <ObjectStateVariable />
             <ArrayStateVariable />
             <ParentStateComponent />
+            
             <ReduxExamples />
             <ul className="list-group">
                 {todos.map((todo: any) => (

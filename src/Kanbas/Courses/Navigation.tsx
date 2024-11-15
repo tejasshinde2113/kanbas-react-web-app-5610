@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams} from "react-router-dom";
+import { Link, NavLink, useLocation, useParams} from "react-router-dom";
 import { courses } from "../Database";
 
 export default function CoursesNavigation() {
@@ -17,5 +17,6 @@ export default function CoursesNavigation() {
           {link}
         </Link>
       ))}
+    
     </div>
 );}

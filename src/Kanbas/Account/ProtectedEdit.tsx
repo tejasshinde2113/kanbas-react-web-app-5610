@@ -6,7 +6,4 @@ export default function ProtectedEdit({ children }: { children: any }) {
     if (currentUser.role === "FACULTY") {
         return children;
     } 
-    // else {
-    //     return <Navigate to="/Kanbas/Account/Signin" />;
-    // }
 }
