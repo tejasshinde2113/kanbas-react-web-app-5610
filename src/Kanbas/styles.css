@@ -29,4 +29,9 @@ body * {  font-family: Arial, Helvetica, sans-serif;  }
   .wd-lesson {
     border-left: 3px solid green !important;
   }
+
+  .btn-padding-right {
+    padding-right: 10px;
+    padding-bottom: 10px;
+  }
   

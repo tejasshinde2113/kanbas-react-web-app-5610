@@ -61,7 +61,7 @@ export default function Dashboard({ courses, setCourses, allCourses, setAllCours
                 <button className="btn btn-primary float-end"
                 id="wd-enrollments-click" 
                 onClick={() => setShowAllCourses(!showAllCourses)}>
-                  {showAllCourses ? "Back" : "Enrollments"}
+                  {showAllCourses ? "All Courses" : "Enrolled Courses"}
                 </button>
             </ProtectedRouteStudent>
         </h1> 
@@ -150,7 +150,8 @@ export default function Dashboard({ courses, setCourses, allCourses, setAllCours
                                     </div>
                                     ) : (
                                     <button
-                                        className="btn btn-success ms-1 float-end"
+                                        className="btn btn-success ms-1"
+                                        style={{ paddingBottom: '10px' }}
                                         onClick={(e) => {
                                             e.preventDefault();
                                             enrollUserInCourse(course._id);
@@ -158,9 +159,12 @@ export default function Dashboard({ courses, setCourses, allCourses, setAllCours
                                     >
                                         Enroll
                                     </button>
+
                                 )}
                             </ProtectedRouteStudent>
+                          
                         </div>
+
                     </Link>
                 </div>
                 </div>
