@@ -50,7 +50,7 @@ export default function TOC() {
       </li>
       <li className="nav-item">
         <a id="wd-github-server" href="https://github.com/tejasshinde2113/kanbas-node-server-app" className="nav-link" target="_blank">
-          My Server Repo
+          My Server Repository
         </a>
       </li>
     </ul>
