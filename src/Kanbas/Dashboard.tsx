@@ -33,7 +33,8 @@ export default function Dashboard({ courses, setCourses, allCourses, setAllCours
     
     useEffect(() => {
         dispatch(setEnrollments(courses));
-    }, [courses, showAllCourses]);
+    }, [courses, setCourses, allCourses, setAllCourses,
+        course, setCourse, addNewCourse, deleteCourse, updateCourse]);
     
 
     const enrollUserInCourse = async (courseId: any) => {
