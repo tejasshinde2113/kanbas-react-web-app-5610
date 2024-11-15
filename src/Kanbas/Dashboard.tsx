@@ -61,7 +61,7 @@ export default function Dashboard({ courses, setCourses, allCourses, setAllCours
                 <button className="btn btn-primary float-end"
                 id="wd-enrollments-click" 
                 onClick={() => setShowAllCourses(!showAllCourses)}>
-                  {showAllCourses ? "All Courses" : "Enrolled Courses"}
+                  {showAllCourses ? "Enrolled Courses" : "All Courses"}
                 </button>
             </ProtectedRouteStudent>
         </h1> 
@@ -94,7 +94,7 @@ export default function Dashboard({ courses, setCourses, allCourses, setAllCours
                                 (c: any) =>
                                     c._id === course._id ) ? (`/Kanbas/Courses/${course._id}/Home`) : ("/Kanbas/Dashboard")}
                         className="wd-dashboard-course-link text-decoration-none text-dark" >
-                        <img src={`/images/${course._id}.jpg`} width="100%" height={160} 
+                        <img src={`/images/${course.image}.jpg`} width="100%" height={160} 
                             onError={(e) => {
                                 const target = e.target as HTMLImageElement;  // type cast to HTMLImageElement
                                 target.onerror = null;  // prevent infinite loop in case fallback image fails
