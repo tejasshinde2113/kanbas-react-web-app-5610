@@ -28,7 +28,8 @@ export default function Signin() {
              id="wd-password" placeholder="password" type="password" className="form-control mb-2"/> 
       <button onClick={signin}  id="wd-signin-btn"
              className="btn btn-primary w-100"> Sign in </button> <br />
-
+             {/* Clicking th eabove button will take you to Dashboard
+             As it is the default route set */}
       <Link  id="wd-signup-link" to="/Kanbas/Account/Signup">Sign up</Link>
     </div>
 );}

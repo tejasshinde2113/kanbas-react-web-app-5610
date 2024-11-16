@@ -2,104 +2,81 @@ import { Link, useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import * as db from "../../Database"
 import ProtectedEdit from "../../Account/ProtectedEdit";
-import { addAssignment, editAssignment, updateAssignment, deleteAssignment } from "./reducer";
+import { addAssignment, updateAssignment } from "./reducer";
 import { useSelector, useDispatch } from "react-redux"; 
+import * as coursesClient from "../client";
+import * as assignmentsClient from "./client";
 
 export default function AssignmentEditor() {
     const { cid, aid } = useParams();
     // const assignments = db.assignments;
-    const { assignments } = useSelector((state: any) => state.assignmentsReducer);
-    const dispatch = useDispatch();
-    
-    // Find the assignment by ID
-    const assignment = assignments.find((assignment: any) => assignment._id === aid);
-    
     // Set up local state for form inputs
-    const [assignmentData, setAssignmentData] = useState({
-        title: assignment?.title || "",
-        description: assignment?.description || "",
-        points: assignment?.points || "0",
-        due_date_num: assignment?.due_date_num || "",
-        available_date_num: assignment?.available_date_num || "",
-    });
-
-
-    useEffect(() => {
-        if (assignment) {
-          setAssignmentData({
-            title: assignment.title,
-            description: assignment.description,
-            points: assignment.points,
-            due_date_num: assignment.due_date_num,
-            available_date_num: assignment.available_date_num,
-          });
-        }
-    }, [assignments, aid, assignment]);
-
-    // // Handle form input changes
-    // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    //     setAssignmentData({
-    //         ...assignmentData,
-    //         [e.target.id]: e.target.value,
-    //     });
-    // };
-
-    // Handle the Save button click
-    const handleSave = () => {
-        dispatch(updateAssignment({ _id: aid, ...assignmentData }));
+    const { assignments } = useSelector((state: any) => state.assignmentsReducer);
+    const assignment = assignments.find((assignment: any) => assignment._id === aid);
+    const [assignmentName, setAssignmentName] = useState("");
+    const [assignmentDesc, setAssignmentDesc] = useState("");
+    const [assignmentPoints, setAssignmentPoints] = useState("");
+    const [assignmentDue, setAssignmentDue] = useState("");
+    const [assignmentFrom, setAssignmentFrom] = useState("");
+    
+    const createAssignmentForCourse = async () => {
+        if (!cid) return;
+        const newAssignment = { 
+            title: assignmentName,
+            description: assignmentDesc,
+            points: assignmentPoints,
+            due_date_num: assignmentDue,
+            available_date_num: assignmentFrom,
+            course: cid 
+        };
+        const assignment = await coursesClient.createAssignmentForCourse(cid, newAssignment);
+        dispatch(addAssignment(assignment));
     };
-
-    // Handle input changes
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setAssignmentData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
+    
+    const saveAssignment = async () => {
+        const updatedAssignment = { 
+            _id: aid,
+            title: assignmentName,
+            description: assignmentDesc,
+            points: assignmentPoints,
+            due_date_num: assignmentDue,
+            available_date_num: assignmentFrom,
+            course: cid 
+        };
+        await assignmentsClient.updateAssignment(updatedAssignment);
+        dispatch(updateAssignment(updatedAssignment));
     };
-
-
-
-
+    
+    
     useEffect(() => {
-        // If the assignment changes, sync local state (necessary when switching between assignments)
-        if (assignment) {
-        setAssignmentData({
-            title: assignment.title,
-            description: assignment.description,
-            points: assignment.points,
-            due_date_num: assignment.due_date_num,
-            available_date_num: assignment.available_date_num,
-        });
+        if(aid !== "new"){
+            setAssignmentName(assignment.title);
+            setAssignmentDesc(assignment.description);
+            setAssignmentPoints(assignment.points);
+            setAssignmentFrom(assignment.available_date_num);
+            setAssignmentDue(assignment.due_date_num);
         }
     }, [assignment]);
+
+    const dispatch = useDispatch();
 
     return (
       <div id="wd-assignments-editor">
         <label htmlFor="wd-name"><h5>Assignment Name</h5></label>
-        <div className="input-group mb-4">
-            <input
-                id="wd-name"
-                name="title" // Set name attribute for handleChange
-                className="form-control"
-                value={assignmentData.title}
-                onChange={handleChange}
-            />
-        </div>
-        <label htmlFor="wd-description"><h5>Description</h5></label>
-        <div className="input-group mb-4">
-            <textarea
-                id="wd-description"
-                name="description" // Set name attribute for handleChange
-                className="form-control"
-                value={assignmentData.description}
-                onChange={handleChange}
-            />
-        </div>
         
-        {/* {assignments 
-            .filter((assignment: any) => assignment._id === aid)
-                .map((assignment: any) => ( */}
+                    <div className="input-group mb-4">
+                        <input id="wd-name" className="form-control" defaultValue={assignmentName}
+                            onChange={(e) => setAssignmentName(e.target.value)} />
+                    </div>
+                
+        
+                <div className="input-group mb-4">
+                    <textarea id="wd-description" className="form-control" defaultValue={assignmentDesc}
+                        onChange={(e) => setAssignmentDesc(e.target.value)} />
+                </div>
+                
+        
+        
                 <div id="wd-css-responsive-forms-2">
                     <form>
                         <div className="row mb-3">
@@ -107,16 +84,13 @@ export default function AssignmentEditor() {
                                 Points 
                             </label>
                             <div className="col-sm-9">
-                                
-                                <input id="wd-points" 
-                                name="points"
-                                className="form-control" 
-                                defaultValue={assignment.points} 
-                                    onChange={handleChange}/>
+                                <input id="wd-points" className="form-control" defaultValue={assignmentPoints} 
+                                    onChange={(e) => setAssignmentPoints(e.target.value)}/>
                             </div> 
                         </div>
 
-
+                        {(aid !== "new") ? (
+                        <div>
                         <div className="row mb-3">
                             <label htmlFor="wd-group" className="text-end col-sm-3 col-form-label">
                                 Assignment Group
@@ -179,6 +153,7 @@ export default function AssignmentEditor() {
                                 </div>
                             </div>
                         </div>
+                        </div>) : (<div></div>)}
 
 
                         <div className="row mb-3">
@@ -187,20 +162,19 @@ export default function AssignmentEditor() {
                                 Assign
                             </label>
                             <div className="col-sm-9 border">
+                                {(aid !== "new") ? (
+                                <div>
                                 <label htmlFor="wd-assign-to" className="mt-3">
                                     <h5>Assign to</h5>
                                 </label>
                                 <input className="form-control mb-4" id="wd-assign-to" value={"Everyone"} />
-
-
-
+                                </div>) : (<div> </div>)}
 
                                 <label id="wd-due-date" htmlFor="wd-assign-to"> Due </label>
                                 <input className="form-control mb-4" type="date"
                                     id="wd-due-date"
-                                    name="due_date_num"
-                                    defaultValue={assignment.due_date_num}
-                                    onChange={handleChange}/>
+                                    defaultValue={assignmentDue}
+                                    onChange={(e) => setAssignmentDue(e.target.value)}/>
                                 <div className="d-flex mb-4">
                                     <div className="flex-fill">
                                         <label htmlFor="wd-available-from">
@@ -208,22 +182,17 @@ export default function AssignmentEditor() {
                                         </label>
                                         <div><input className="form-control" type="date"
                                             id="wd-available-from"
-                                            name="available_date_num"
-                                            defaultValue={assignment.available_date_num}
-                                            onChange={handleChange}/>
+                                            defaultValue={assignmentFrom}
+                                            onChange={(e) => setAssignmentFrom(e.target.value)}/>
                                         </div>
                                     </div>
-
-
-
 
                                     <div className="flex-fill">
                                         <label htmlFor="wd-available-until">Until</label>
                                         <div>
                                         <input className="form-control" type="date"
                                             id="wd-available-until"
-                                            name="due_date_num"
-                                            defaultValue={assignment.due_date_num}/>
+                                            defaultValue={assignmentDue}/>
                                         </div>
                                     </div>
                                 </div>
@@ -231,10 +200,6 @@ export default function AssignmentEditor() {
                         </div>
                     </form>
                 </div>
-                {/* )
-            )
-        } */}
-
         <hr />
         
         <ProtectedEdit>
@@ -245,9 +210,16 @@ export default function AssignmentEditor() {
                     </button>
                 </Link>
                 <Link to="./..">
-                <button className="btn btn-danger" onClick={handleSave} id={`wd-update-${aid}-click`}>
-                    Save
-                </button>
+                    {(aid !== "new") ? (
+                        <button className="btn btn-danger" onClick={saveAssignment}
+                            id={`wd-update-${aid}-click`}>
+                            Save
+                        </button>) : (
+                        <button className="btn btn-danger" onClick={createAssignmentForCourse}
+                            id={`wd-update-${aid}-click`}>
+                            Save
+                        </button>)
+                    }
                 </Link>
             </div>
         </ProtectedEdit>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BsGripVertical } from "react-icons/bs";
 import SingleAssignmentControlButtons from "./SingleAssignmentControlButton";
 import { IoMdArrowDropdown } from "react-icons/io";
@@ -8,12 +8,15 @@ import AssignmentControls from "./AssignmentControls";
 import { useParams, useLocation } from "react-router";
 import * as db from "../../Database";
 import ProtectedEdit from "../../Account/ProtectedEdit";
-import { addAssignment, editAssignment, updateAssignment, deleteAssignment } from "./reducer";
+import { setAssignments, addAssignment, editAssignment, updateAssignment, deleteAssignment } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
+import * as coursesClient from "../client";
+import * as assignmentsClient from "./client";
 
 export default function Assignments() {
   const { cid } = useParams();
-  const [assignmentName, setAssignmentName] = useState(".");
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const [assignmentName, setAssignmentName] = useState("");
   const [assignmentDesc, setAssignmentDesc] = useState("");
   const [assignmentPoints, setAssignmentPoints] = useState("");
   const [assignmentDue, setAssignmentDue] = useState("");
@@ -22,36 +25,25 @@ export default function Assignments() {
 
   const dispatch = useDispatch();
 
+  const fetchAssignments = async () => {
+    const assignments = await coursesClient.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(assignments));
+  };
+
+  const removeAssignment = async (assignmentId: string) => {
+    await assignmentsClient.deleteAssignment(assignmentId);
+    dispatch(deleteAssignment(assignmentId));
+  };
+
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
 
     return (
       <div id="wd-assignments">
-        <ProtectedEdit><AssignmentControls 
-              setAssignmentName={setAssignmentName}
-              setAssignmentDesc={setAssignmentDesc}
-              setAssignmentPoints={setAssignmentPoints}
-              setAssignmentDue={setAssignmentDue}
-              setAssignmentFrom={setAssignmentFrom}
-              assignmentName={assignmentName} 
-              assignmentDesc={assignmentDesc}
-              assignmentPoints={assignmentPoints}
-              assignmentDue={assignmentDue}
-              assignmentFrom={assignmentFrom}
-              addAssignment={() => {
-                dispatch(addAssignment({ 
-                  title: assignmentName,
-                  description: assignmentDesc,
-                  points: assignmentPoints,
-                  due_date_num: assignmentDue,
-                  available_date_num: assignmentFrom,
-                  course: cid,
-                }));
-                setAssignmentName("");
-                setAssignmentDesc("");
-                setAssignmentPoints("");
-                setAssignmentDue("");
-                setAssignmentFrom("");
-              }}/>
-          </ProtectedEdit> 
+        <ProtectedEdit>
+          <AssignmentControls/>
+        </ProtectedEdit> 
         <br /><br /><br /><br />
 
         <ul id="wd-assignment-list" className="list-group rounded-0">
@@ -63,7 +55,6 @@ export default function Assignments() {
               <AssignmentControlButtons />
             </div>
             {assignments
-                .filter((assignment: any) => assignment.course === cid)
                 .map((assignment: any) => (
                     <li className="wd-lesson list-group-item p-3 ps-1">
                       <div className="d-flex">
@@ -73,7 +64,8 @@ export default function Assignments() {
                         </div>
                         <div className="align-self-center flex-grow-1">
                           <a className="wd-assignment-link"
-                            href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
+                            href={currentUser.role === "FACULTY" ? `#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`
+                              : `#/Kanbas/Courses/${cid}/Assignments/`}>
                             {assignment.title}
                           </a><br />
                           <div className="wd-float-left text-danger me-1">
@@ -89,9 +81,7 @@ export default function Assignments() {
                         <div className="align-self-center">
                           <SingleAssignmentControlButtons 
                             assignmentId={assignment._id}
-                            deleteAssignment={(assignmentId) => {
-                              dispatch(deleteAssignment(assignmentId));
-                            }}/>
+                            deleteAssignment={(assignmentId) => removeAssignment(assignmentId)}/>
                         </div>
                       </div>
                   </li>

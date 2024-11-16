@@ -33,8 +33,7 @@ export default function Dashboard({ courses, setCourses, allCourses, setAllCours
     
     useEffect(() => {
         dispatch(setEnrollments(courses));
-    }, [courses, setCourses, allCourses, setAllCourses,
-        course, setCourse, addNewCourse, deleteCourse, updateCourse]);
+    }, []);
     
 
     const enrollUserInCourse = async (courseId: any) => {
@@ -62,7 +61,7 @@ export default function Dashboard({ courses, setCourses, allCourses, setAllCours
                 <button className="btn btn-primary float-end"
                 id="wd-enrollments-click" 
                 onClick={() => setShowAllCourses(!showAllCourses)}>
-                  {showAllCourses ? "Enrolled Courses" : "All Courses"}
+                  {showAllCourses ? "Enrolled courses" : "Unenrolled courses"}
                 </button>
             </ProtectedRouteStudent>
         </h1> 
@@ -95,11 +94,11 @@ export default function Dashboard({ courses, setCourses, allCourses, setAllCours
                                 (c: any) =>
                                     c._id === course._id ) ? (`/Kanbas/Courses/${course._id}/Home`) : ("/Kanbas/Dashboard")}
                         className="wd-dashboard-course-link text-decoration-none text-dark" >
-                        <img src={`/images/${course.image}.jpg`} width="100%" height={160} 
+                        <img src={`/images/${course._id}.jpg`} width="100%" height={160} 
                             onError={(e) => {
                                 const target = e.target as HTMLImageElement;  // type cast to HTMLImageElement
                                 target.onerror = null;  // prevent infinite loop in case fallback image fails
-                                target.src = `${course.image}`;  // fallback image path
+                                target.src = '/images/coursethumbnail.jpg';  // fallback image path
                             }} 
                         />
                         <div className="card-body">
@@ -151,8 +150,7 @@ export default function Dashboard({ courses, setCourses, allCourses, setAllCours
                                     </div>
                                     ) : (
                                     <button
-                                        className="btn btn-success ms-1"
-                                        style={{ paddingBottom: '10px' }}
+                                        className="btn btn-success ms-1 float-end"
                                         onClick={(e) => {
                                             e.preventDefault();
                                             enrollUserInCourse(course._id);
@@ -160,12 +158,9 @@ export default function Dashboard({ courses, setCourses, allCourses, setAllCours
                                     >
                                         Enroll
                                     </button>
-
                                 )}
                             </ProtectedRouteStudent>
-                          
                         </div>
-
                     </Link>
                 </div>
                 </div>

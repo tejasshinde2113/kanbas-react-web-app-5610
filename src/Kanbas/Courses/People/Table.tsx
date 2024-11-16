@@ -1,3 +1,4 @@
+import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import * as db from "../../Database";
@@ -24,8 +25,7 @@ export default function PeopleTable () {
             <tr key={user._id}>
               <td className="wd-full-name text-nowrap">
                 <FaUserCircle className="me-2 fs-1 text-secondary" />
-                <span className="wd-first-name">{user.firstName} </span>
-                 
+                <span className="wd-first-name">{user.firstName}</span>
                 <span className="wd-last-name">{user.lastName}</span>
               </td>
               <td className="wd-login-id">{user.loginId}</td>
@@ -36,6 +36,21 @@ export default function PeopleTable () {
             </tr>
           ))}
         </tbody>
+        
+        {/* <tbody>
+          <tr>
+            <td className="wd-full-name text-nowrap">
+              <FaUserCircle className="me-2 fs-1 text-secondary" />
+              <span className="wd-first-name">Thor</span>{" "}
+              <span className="wd-last-name">Odinson</span>
+            </td>
+            <td className="wd-login-id">001234561S</td>
+            <td className="wd-section">S101</td>
+            <td className="wd-role">STUDENT</td>
+            <td className="wd-last-activity">2020-10-01</td>
+            <td className="wd-total-activity">10:21:32</td>
+          </tr>
+        </tbody> */}
       </table>
     </div>
 );}

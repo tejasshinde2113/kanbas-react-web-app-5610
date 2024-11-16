@@ -20,13 +20,13 @@ export default function AccountNavigation() {
           isActive ? "active" : "text-danger"}`}>
         Signup
       </NavLink>
-      <ProtectedRoute> 
-        <NavLink
-          id="wd-account-profile-link" to="/Kanbas/Account/Profile"
-          className={({ isActive }) => `list-group-item border border-0 ${
-            isActive ? "active" : "text-danger"}`}>
-          Profile
-        </NavLink>
-      </ProtectedRoute> 
+      {/* <ProtectedRoute>  */}
+      <NavLink
+        id="wd-account-profile-link" to="/Kanbas/Account/Profile"
+        className={({ isActive }) => `list-group-item border border-0 ${
+          isActive ? "active" : "text-danger"}`}>
+        Profile
+      </NavLink>
+      {/* </ProtectedRoute>  */}
     </div>
 );}
